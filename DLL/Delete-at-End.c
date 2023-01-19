@@ -23,7 +23,7 @@ int main()
 {
 	head=NULL;
 	
-	int i=1, n, new_data, pos;
+	int i=1, n;
 	printf("Enter the number of nodes for your linked list: ");
 	scanf("%d", &n);
 	
