@@ -62,12 +62,12 @@ int main()
 	printf("\nAfter insertion: ");
 	displayList();
 	
-	head=temp=tail=newNode=NULL;
-	
 	free(head);
 	free(temp);
 	free(tail);
 	free(newNode);
+
+	head=temp=tail=newNode=NULL;
 	
 	//will add a function that will release all nodes
 	

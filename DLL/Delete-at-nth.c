@@ -84,13 +84,12 @@ enterPos:
 	
 	//will add a function that would delete all nodes
 	
-	head=tail=newNode=delete_ptr=traverse=NULL;
 	free(head);
 	free(tail);
 	free(newNode);
 	free(delete_ptr);
 	free(traverse);
-	
+	head=tail=newNode=delete_ptr=traverse=NULL;
 	return 0;
 	
 }

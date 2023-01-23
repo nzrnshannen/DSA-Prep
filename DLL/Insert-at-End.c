@@ -71,12 +71,12 @@ int main()
 	
 	//will add a function that will release all nodes
 	
-	head=tail=traverse=newNode=NULL;
-	
 	free(head);
 	free(tail);
 	free(traverse);
 	free(newNode);
+
+	head=tail=traverse=newNode=NULL;
 	
 	return 0;
 	

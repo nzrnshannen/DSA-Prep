@@ -63,13 +63,13 @@ int main()
 	printf("\nAfter deletion: ");
 	displayList();
 	
-	head=tail=newNode=traverse=NULL;
-	
 	//would add a function that would delete all nodes
 	free(head);
 	free(tail);
 	free(newNode);
 	free(traverse);
+
+	head=tail=newNode=traverse=NULL;
 	
 	return 0;
 	

@@ -89,12 +89,12 @@ inputPos:
 	
 	//will add a function that will release all nodes
 	
-	head=tail=traverse=insert=newNode=NULL;
-	
 	free(head);
 	free(tail);
 	free(traverse);
 	free(newNode);
+
+	head=tail=traverse=insert=newNode=NULL;
 	
 	return 0;
 	

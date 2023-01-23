@@ -39,12 +39,12 @@ int main()
 	
 	displayList();
 	
-	head=temp=tail=newNode=NULL;
-	
 	free(head);
 	free(temp);
 	free(tail);
 	free(newNode);
+	
+	head=temp=tail=newNode=NULL;
 	
 	return 0;
 }
