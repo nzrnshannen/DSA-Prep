@@ -62,7 +62,7 @@ void sortFunc()
 	{
 		for(temp2=head; temp2->next_ptr!=NULL; temp2=temp2->next_ptr)
 		{
-			if(temp2->next_ptr->data < temp2->data)
+			if(temp2->next_ptr->data < temp2->data) //for descending: (temp2->next_ptr->data > temp2->data)
 			{
 				int swap_data;
 				swap_data=temp2->data;
