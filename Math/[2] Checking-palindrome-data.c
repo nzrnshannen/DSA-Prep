@@ -164,6 +164,7 @@ void release_mem(struct node *head)
 		freeThisNode=clear;
 		clear=clear->next_ptr;
 		free(freeThisNode);
+        freeThisNode=NULL;
 	}
 	
 	return;
