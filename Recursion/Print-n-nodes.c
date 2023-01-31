@@ -7,10 +7,12 @@ struct node{
 	struct node *prev_ptr;
 };
 
-struct node *head, *tail, *newNode;
+struct node *head, *tail, *newNode, *freeThisNode, *clear;
 
 void createList(int);
 void displayList(struct node*);
+void release_mem();
+
 int main()
 {
 	int n;
@@ -27,7 +29,7 @@ int main()
 	
 	head=tail=newNode=NULL;
 
-	//will include a function soon that will delete all nodes
+	release_mem();
 	
 	return 0;
 }
@@ -74,4 +76,18 @@ void displayList(struct node *print)
 		print=print->next_ptr;
 		displayList(print);
 	}
+}
+
+void release_mem()
+{
+	clear=head;
+	while(clear!=NULL)
+	{
+		freeThisNode=clear;
+		clear=clear->next_ptr;
+		free(freeThisNode);
+		freeThisNode=NULL;
+	}
+
+	return;
 }
