@@ -6,10 +6,11 @@ struct node{
 	int data;
 	struct node *prev_ptr;
 	struct node *next_ptr;
-}*head, *tail, *newNode, *temp;
+}*head, *tail, *newNode, *temp, *clearNode, *freeNode;
 
 int n;
 
+void release_mem();
 void displayList();
 
 int main()
@@ -69,7 +70,7 @@ int main()
 
 	head=temp=tail=newNode=NULL;
 	
-	//will add a function that will release all nodes
+	release_mem();
 	
 	return 0;
 }
@@ -82,4 +83,18 @@ void displayList()
 		printf("%d ", temp->data);
 		temp=temp->next_ptr;
 	}
+}
+
+void release_mem()
+{
+	clearNode=head;
+	while(clearNode!=NULL)
+	{
+		freeNode=clearNode;
+		clearNode=clearNode->next_ptr;
+		free(freeNode);
+		freeNode=NULL;
+	}
+
+	return;
 }
