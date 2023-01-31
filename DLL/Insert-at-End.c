@@ -6,8 +6,21 @@ struct node{
 	int data;
 	struct node *next_ptr;
 	struct node *prev_ptr;
-}*head, *tail, *traverse, *newNode;
+}*head, *tail, *traverse, *newNode, *clear, *freeThisNode;
 
+void release_nodes()
+{
+	clear=head;
+	while(clear!=NULL)
+	{
+		freeThisNode=clear;
+		clear=clear->next_ptr;
+		free(freeThisNode);
+		freeThisNode=NULL;
+	}
+
+	return;
+}
 void displayList()
 {
 	traverse=head;
@@ -69,7 +82,7 @@ int main()
 	printf("\nAfter insertion: ");
 	displayList();
 	
-	//will add a function that will release all nodes
+	release_nodes();
 	
 	free(head);
 	free(tail);
