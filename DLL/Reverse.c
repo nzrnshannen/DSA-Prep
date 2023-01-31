@@ -5,10 +5,11 @@ struct node{
 	int data;
 	struct node* prev_ptr;
 	struct node* next_ptr;
-}*head, *current, *newNode, *nextNode, *tail, *traverse, *swap;
+}*head, *current, *newNode, *nextNode, *tail, *traverse, *swap, *clear, *freeThisNode;
 
 void printList();
 void reverseList();
+void free_mem();
 
 int main()
 {
@@ -44,6 +45,8 @@ int main()
 	reverseList();
 	printf("List after reversing: ");
 	printList();
+	
+	free_mem();
 	
 	free(head);
 	free(traverse);
@@ -84,4 +87,18 @@ void reverseList()
 	head=tail;
 	tail=swap;
 	
+}
+
+void free_mem()
+{
+	clear=head;
+	while(clear!=NULL)
+	{
+		freeThisNode=clear;
+		clear=clear->next_ptr;
+		free(freeThisNode);
+		freeThisNode=NULL;
+	}
+
+	return;
 }
