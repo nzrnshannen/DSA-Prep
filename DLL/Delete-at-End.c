@@ -6,8 +6,21 @@ struct node{
 	int data;
 	struct node *next_ptr;
 	struct node *prev_ptr;
-}*head, *tail, *traverse, *newNode, *freeThisNode;
+}*head, *tail, *traverse, *newNode, *freeThisNode, *clear;
 
+void release_mem()
+{
+	clear=head;
+	while(clear!=NULL)
+	{	
+		freeThisNode=clear;
+		clear=clear->next_ptr;
+		free(freeThisNode);
+		freeThisNode=NULL;
+	}
+
+	return;
+}
 void displayList()
 {
 	traverse=head;
@@ -64,13 +77,7 @@ int main()
 	printf("\nAfter deletion: ");
 	displayList();
 	
-	//would add a function that would delete all nodes
-	free(head);
-	free(tail);
-	free(newNode);
-	free(traverse);
-
-	head=tail=newNode=traverse=NULL;
+	release_mem();
 	
 	return 0;
 	
