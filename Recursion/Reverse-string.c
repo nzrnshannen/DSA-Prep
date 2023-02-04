@@ -80,16 +80,11 @@ void rev_display_list(struct node *rev)
 
 void free_mem(struct node *clear)
 {
-	if(clear==NULL)
-	{
-		return;
-	}
-	else
+	while(clear!=NULL)
 	{
 		freeThisNode=clear;
 		clear=clear->next_ptr;
 		free(freeThisNode);
 		freeThisNode=NULL;
-		free_mem(clear);
 	}
 }
