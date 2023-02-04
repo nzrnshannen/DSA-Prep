@@ -72,14 +72,10 @@ int display_list(struct node *traverse)
 
 void release_mem(struct node *clear_mem)
 {
-	if(clear_mem==NULL)
-	{
-		return;
-	}
-	else
+	while(clear_mem!=NULL)
 	{
 		freeThisNode=clear_mem;
-		release_mem(clear_mem=clear_mem->next_ptr);
+		clear_mem=clear_mem->next_ptr;
 		free(freeThisNode);
 		freeThisNode=NULL;
 	}
