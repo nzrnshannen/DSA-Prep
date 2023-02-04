@@ -92,14 +92,10 @@ void display_list(struct node *print_data)
 //function bound to change
 void clear_mem(struct node *clear_data)
 {
-	if(clear_data==NULL)
-	{
-		return;
-	}
-	else
+	while(clear_data!=NULL)
 	{
 		freeThisNode=clear_data;
-		clear_mem(clear_data=clear_data->nxt_ptr);
+		clear_data=clear_data->nxt_ptr;
 		free(freeThisNode);
 		freeThisNode=NULL;
 	}
