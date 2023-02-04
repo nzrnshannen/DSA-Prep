@@ -60,17 +60,12 @@ void create_list(int i, int n)
 
 void free_mem(struct node *clear)
 {
-	if(clear==NULL)
-	{
-		return;
-	}
-	else
+	if(clear!=NULL)
 	{
 		freeThisNode=clear;
 		clear=clear->next_ptr;
 		free(freeThisNode);
 		freeThisNode=NULL;
-		free_mem(clear);
 	}
 }
 
