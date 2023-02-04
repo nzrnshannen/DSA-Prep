@@ -75,17 +75,12 @@ void list_display(struct node *print_data)
 	}
 }
 
-//function bound to change
 void clear_mem(struct node *clear_ptr)
 {
-	if(clear_ptr==NULL)
-	{
-		return;
-	}
-	else
+	if(clear_ptr!=NULL)
 	{
 		freeThisNode=clear_ptr;
-		return clear_mem(clear_ptr=clear_ptr->next_addr);
+		clear_ptr=clear_ptr->next_addr;
 		free(freeThisNode);
 		freeThisNode=NULL;
 	}
