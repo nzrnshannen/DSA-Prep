@@ -77,7 +77,7 @@ void list_display(struct node *print_data)
 
 void clear_mem(struct node *clear_ptr)
 {
-	if(clear_ptr!=NULL)
+	while(clear_ptr!=NULL)
 	{
 		freeThisNode=clear_ptr;
 		clear_ptr=clear_ptr->next_addr;
