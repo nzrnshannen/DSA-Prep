@@ -12,7 +12,7 @@ struct checkPrime *head, *tail, *newNode, *freeThisNode, *clear;
 void create_linked_list(int, int);
 void display_list(struct checkPrime*);
 void check_if_prime(struct checkPrime*);
-int prime_or_not(int);
+int prime_or_not(int, int);
 void free_mem();
 
 int main()
@@ -42,6 +42,7 @@ void free_mem()
 		freeThisNode=NULL;
 	}
 }
+
 int prime_or_not(int i, int num)
 {
 	int flag=0;
