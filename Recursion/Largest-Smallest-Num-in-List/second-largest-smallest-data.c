@@ -27,8 +27,10 @@ int main()
 	printf("Linked list: ");
 	display_list(head);
 	
-	//solve second largest
+	//find second largest
 	int largest_second=findLargest(head);
+
+    //find second largest
 	int smallest_second=findSmallest(head);
 	printf("\n\n---\n");
 	printf("Second largest data: %d", largest_second);
