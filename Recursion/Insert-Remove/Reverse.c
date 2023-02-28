@@ -64,6 +64,7 @@ void display_list(struct reverseList* print_data)
 		return display_list(print_data->next);
 	}
 }
+
 void create_list(int i, int num_of_nodes)
 {
 	if(i>num_of_nodes)
