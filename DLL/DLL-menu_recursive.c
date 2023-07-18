@@ -1,6 +1,6 @@
 /*
 	Name: Shannen T. Nazareno
-	Program: DLL Menu (Recursive): Create, Display, Insert, Delete, and Reverse
+	Program: DLL Menu (Recursive): Create, Display, Insert, Delete, Reverse, and Search
 */
 
 #include<stdio.h>
@@ -24,6 +24,8 @@ void displayList(struct node*);
 void createList(int);
 void reverseList(struct node*, struct node*);
 
+int searchList(struct node*, int, int, int, int);
+
 void errorMsg();
 void clearList();
 void displayNo();
@@ -32,19 +34,20 @@ int n;
 int main()
 {
 	head=NULL;
-	int choice, pos, data;
+	int choice, pos, data, numSearch;
 
 mainMenu:
 	printf("===DOUBLY-LINKED LIST===\n");
 	printf("[1] Create\n");
-	printf("[2] Display\n");
-	printf("[3] Insert\n");
-	printf("[4] Delete\n");
-	printf("[5] Reverse\n");
-	printf("[6] EXIT\n---\nChoice: ");
+	printf("[2] Display list\n");
+	printf("[3] Insert node\n");
+	printf("[4] Delete node\n");
+	printf("[5] Reverse list\n");
+	printf("[6] Search data\n");
+	printf("[7] EXIT\n---\nChoice: ");
 	scanf("%d", &choice);
 	
-	if(n==0 && choice>1 && choice<6)
+	if(n==0 && choice>1 && choice<7)
 	{
 		printf("\n\n\t\tCreate a list first!\n\n\n");
 		goto mainMenu;
@@ -219,7 +222,21 @@ mainMenu:
 			printf("\n\n\tLink reversed.\n\n\n");
 			break;
 			
-			case 6: //exit (clear) 
+			case 6: //search data
+			printf("\n\n -- DATA SEARCH --\n");
+			printf("Enter data to search: ");
+			scanf("%d", &data);
+			
+			numSearch=searchList(head, data, 0, 0, 0);
+			
+			if(numSearch==0)
+			{
+				printf("\n\n\tData doesn't exist.\n\n\n");
+			}
+			
+			break;
+			
+			case 7: //exit (clear) 
 			printf("\n\n===============================================\n\n\t\tPROGRAM TERMINATED\n\n");
 			clearList();
 			free(head);
@@ -410,5 +427,27 @@ void reverseList(struct node*currentNode, struct node *nextNode)
 		currentNode->prev=nextNode;
 		currentNode=nextNode;
 		return reverseList(currentNode, nextNode);
+	}
+}
+
+int searchList(struct node *search_ptr, int data, int flag, int pos, int occurrence)
+{
+	if(search_ptr==NULL)
+	{
+		if(flag==1)
+		{
+			printf("\n\n-----\nThe data %d is on the list.\nOccurrence: %d\n\n", data, occurrence);
+		}
+		return flag;
+	}
+	else
+	{
+		if(search_ptr->data==data)
+		{
+			flag=1;
+			occurrence++;
+		}
+		
+		return searchList(search_ptr->next, data, flag, pos+1, occurrence);
 	}
 }
