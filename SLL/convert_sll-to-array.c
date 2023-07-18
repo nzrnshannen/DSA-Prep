@@ -13,7 +13,7 @@ struct arrList{
 
 void createList(int, int);
 void displayList(struct arrList*);
-int* traverseFunc(int, int[]);
+int* traverseFunc(int[]);
 void clearFunc();
 
 int main()
@@ -30,9 +30,8 @@ int main()
 	displayList(head);
 	
 	int arr[n];
-	int *ptr = traverseFunc(n, arr);
+	int *ptr = traverseFunc(arr);
 	
-	int i=0; 
 	
 	printf("---\nArray: ");
 	for(int i=0; i<n; i++)
@@ -87,7 +86,7 @@ void displayList(struct arrList *print)
 }
 
 //iterative
-int *traverseFunc(int n, int arr[])
+int *traverseFunc(int arr[])
 {
 	int i=0;
 	
