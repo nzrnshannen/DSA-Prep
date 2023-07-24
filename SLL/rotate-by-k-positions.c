@@ -18,7 +18,7 @@ int main()
 {
 	int k;
 	head=NULL;
-	printf("== ROTATE LIST BY K POSITIONS TO THE LEFT ==\n");
+	printf("== ROTATE LIST BY K POSITIONS TO THE RIGHT ==\n");
 	printf("Enter the number of nodes for your linked list: ");
 	scanf("%d", &n);
 	
@@ -30,7 +30,7 @@ int main()
 	printf("Number of positions to rotate the list: ");
 	scanf("%d", &k);
 	
-	rotateList(1, k);
+	rotateList(0, k);
 	
 	printf("\nLinked list after rotating: ");
 	displayList(head);
