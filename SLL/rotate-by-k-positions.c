@@ -1,3 +1,8 @@
+/*
+    Name: Shannen T. Nazareno
+    Program: SLL program to rotate the list to the right by k positions
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
