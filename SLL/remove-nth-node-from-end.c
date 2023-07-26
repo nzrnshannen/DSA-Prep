@@ -1,3 +1,8 @@
+/*
+    Name: Shannen T. Nazareno
+    Program: SLL program to remove the (nth) node from the end of the list.
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
