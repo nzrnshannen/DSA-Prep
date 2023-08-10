@@ -1,4 +1,4 @@
-//singly linked list implementation
+//singly linked list implementation: create, display, insert at end
 
 #include<stdio.h>
 #include<stdlib.h>
