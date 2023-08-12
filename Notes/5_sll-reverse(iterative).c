@@ -84,7 +84,7 @@ struct Node* Insert(struct Node *head, int x) //insert at end
 	
 }
 
-void Print(struct Node *temp)
+void Print(struct Node *temp) //temp to print all the list starting from the head to the end of the node
 {
 	printf("---\nList is: ");
 	while(temp!=NULL)
