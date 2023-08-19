@@ -167,6 +167,10 @@ mainMenu:
 				ifCreate:
 					printf("\n\n*****\nList cleared. Do you want to create a new one?\n[1] Yes\n[2] No\n---\nChoice: ");
 					scanf("%d", &choice);
+
+
+
+
 					switch(choice)
 					{
 						case 1: printf("\n\n");
@@ -180,16 +184,28 @@ mainMenu:
 							goto inputAgainLen;
 						}
 						printf("Enter data for your %d nodes", n);
-						createList(1); break;
+						createList(1); 
+						break;
 						
-						case 2: printf("\n\n\tDecided not to make a new list.\n\n"); break;
-						default: errorMsg(); goto ifCreate;
+						case 2: printf("\n\n\tDecided not to make a new list.\n\n"); 
+						break;
+
+						default: errorMsg(); goto ifCreate; 
+						break;
+
 					}
-					case 2: printf("\n\nDecided not to delete list.\n\n"); goto mainMenu;
+					break;
+
+					case 2: printf("\n\nDecided not to delete list.\n\n"); goto mainMenu; 
+					break;
+
 					default: errorMsg(); //continue here. Make a goto statement, delete_at_nth(), reverseList()
 					goto confirmDeletionList;
+					break;
 				}
 			}
+
+			break;
 			printf("\n-- DELETION --\n");
 			displayNo();
 		inputDeletionPos:
