@@ -75,20 +75,21 @@ void Print(struct Node *temp)
 
 struct Node* Reverse(struct Node* head, struct Node* p)
 {
-	if(p->next==NULL) //exit condition: if p reaches the last node, we will return (which is when p is at the second to the last node)
+	if(p->next==NULL) //exit condition: if p reaches the last node, we will return (which is p is now at the second to the last node)
 	{
 		head=p; //head is now pointing at the last node
 		return head;
 	}
 	
 	struct Node *new_head= Reverse(head, p->next); //Reverse() is called up until when p->next is NULL
+    //after executing the exit condition, new_head is pointing to the last node due to 'return head' at the if() statement
     
     //CASES AFTER THE EXIT CONDITION IS EXECUTED: 
     //(new) head is now pointing at the last node
 
     //since we've returned, the p is pointing at the second to the last node
     //p is not pointing anymore at the last node since we've returned due to the exit condition
-    //q will point to the node next to p
+    //q will point to the node next to p 
     //using q, we can store the previous node (which is p)
 
 	struct Node *q = p->next; //q is now pointing at the next node (after p)

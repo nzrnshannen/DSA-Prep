@@ -139,14 +139,14 @@ mainMenu:
 			printf("Enter position: ");
 			scanf("%d", &pos);
 			
-			if(pos<=0 || pos>n)
+			if(pos<=0 || pos>n+1)
 			{
 				errorMsg();
 				goto enterInsertPos;
 			}
 			else if(pos==1)
 				insert_at_beginning(data);
-			else if(pos==n)
+			else if(pos==n+1)
 				insert_at_end(data);
 			else
 				insert_at_nth(data, head, 1, pos);
