@@ -1,4 +1,5 @@
 //pointer to node
+//return type LIST 
 
 #include<stdio.h>
 #include<stdlib.h>
