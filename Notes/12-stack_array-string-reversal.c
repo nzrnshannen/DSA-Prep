@@ -51,7 +51,7 @@ int main()
     Reverse(C, strlen(C));
     printf("\n=====\nUsing Reverse() function = %s", C);
     test(C, strlen(C));
-    // use this to test out a different one (but not intended for stack approach)
+    // use this to test out a different one (but not intended for stack approach just to show that they have the same result)
                 //printf("Using test() function = %s", C); 
 }
 
