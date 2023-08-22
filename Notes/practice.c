@@ -1,57 +1,58 @@
-//string reversal using stack
+#include <stdio.h>
 
-#include<stdio.h>
-#include<string.h>
+#define MAX_SIZE 100 // Maximum size of the array
 
-int top=-1;
+struct List {
+    int arr[MAX_SIZE]; // Static array to hold elements
+    int size; // Current size of the list
+};
 
-int getTop(char S[])
+void initList(struct List *list) //setting the current size of the list to 0 at first
 {
-    return S[top];
+    list->size = 0; // Initialize size to 0
 }
-void Reverse(char C[], int n)
-{
-    char stack[n];
 
-    //push
-    for(int i=0; i<n; i++)
+void append(struct List *list, int element) {
+    if (list->size < MAX_SIZE) //if current size is lesser than MAX_SIZE, element can be appended
     {
-        stack[i]=C[i];
-        top++;
-    }
-
-    //pop
-    for(int i=0; i<n; i++)
+        list->arr[list->size++] = element; // Append element and increment size
+        //we use list->arr as the *list in here is acting like a pointer to pointer to the array 
+        //list->arr[0]; after appending, size will be increased
+    } 
+    else 
     {
-        C[i] = getTop(stack);
-        top--;
+        //no more elements to append as static array is now full
+        printf("List is full. Cannot append.\n");
     }
 }
 
-void test(char C[], int n)
+int get(struct List *list, int index) 
 {
-    int i, j;
-    j=n-1;
-    for(i=0; i<j; i++)
+    if (index >= 0 && index < list->size) 
     {
-        char swap;
-        swap=C[j];
-        C[j]=C[i];
-        C[i]=swap;
-        j--;
+        return list->arr[index]; // Return element at the given index
     }
-
+    printf("Index out of bounds.\n");
+    return -1; // Just an example, you might want to handle errors differently
 }
 
-int main()
-{
-    char C[51];
-    printf("Enter a string: ");
-    gets(C);
-    Reverse(C, strlen(C));
-    printf("\n=====\nUsing Reverse() function = %s", C);
-    test(C, strlen(C));
-    // use this to test out a different one (but not intended for stack approach)
-                //printf("Using test() function = %s", C); 
+int size(struct List *list) {
+    return list->size; // Return the current size of the list
 }
 
+int main() {
+    struct List list;
+    initList(&list); //initialize list first to have a current size of 0
+    
+    append(&list, 5); //size = 1
+    append(&list, 10); //size = 2
+    append(&list, 15); //size = 3
+    
+    printf("Element at index 0: %d\n", get(&list, 0));
+    printf("Element at index 1: %d\n", get(&list, 1));
+    printf("Element at index 2: %d\n", get(&list, 2));
+    
+    printf("List size: %d\n", size(&list));
+    
+    return 0;
+}
