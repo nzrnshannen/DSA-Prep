@@ -28,6 +28,7 @@ void Print(LIST P);
 void InsertUniqueElem(char data, LIST *B);
 void clearList(LIST *C);
 void DeleteOccurrences(LIST *D);
+void DeleteSpecificElem(char elem, LIST *E);
 
 int main()
 {
@@ -73,8 +74,9 @@ inputN:
         printf("\n===============================\n");
         printf("[1] Insert Unique Element\n");
         printf("[2] Delete Occurences\n");
-        printf("[3] Display List\n");
-        printf("[4] Create New List");
+        printf("[3] Delete Specific Element\n");
+        printf("[4] Display List\n");
+        printf("[5] Create New List");
         printf("\n\n[0] EXIT");
         printf("\n---\nChoice: ");
         scanf("%d", &choice);
@@ -97,14 +99,29 @@ inputN:
                 DeleteOccurrences(&L);
             break;
 
-            case 3:
+            case 3: 
+
+            if(L==NULL)
+                printf("\n\n\tCreate a list first!\n\n");
+            else
+            {
+                char specificElem;
+                printf("\n -- DELETE SPECIFIC ELEMENT --\n");
+                printf("Enter an element to search: ");
+                scanf(" %c", &specificElem);
+
+                DeleteSpecificElem(specificElem, &L);
+            }
+
+            break;
+            case 4:
             if(L==NULL)
                 printf("\n\n\tCreate a list first!\n\n");
             else
                 Print(L);
             break;
 
-            case 4: 
+            case 5: 
             int confirm;
         inputConfirmation:
             printf("\n\nCreating a new list requires deleting the existing list.\nDo you wish to continue?\n");
@@ -232,6 +249,55 @@ void DeleteOccurrences(LIST *D)
             printf("\n\n\tDeleted occurrences.\n\n");
 }
 
+void DeleteSpecificElem(char elem, LIST *E)
+{
+    int flag=0;
+    LIST curr, prev;
+    curr = *E;
+    LIST freeNode;
+
+    while(curr!=NULL)
+    {
+        if(curr->data!=elem)
+        {
+            curr=curr->link;
+        }
+        else
+        {
+            flag=1;
+            if(curr==(*E))
+            {
+                freeNode=curr;
+                *E = (*E)->link;
+                curr=*E;
+
+                if(curr->link==NULL)
+                {
+                    printf("\n\n\t>> List is now empty <<\n\n");
+                }
+
+                free(freeNode);
+            }
+            else
+            {
+                for(prev=*E; prev->link!=curr; prev=prev->link){}
+                freeNode=curr;
+                prev->link=curr->link;
+                curr=curr->link;
+                free(freeNode);
+            }
+        }
+    }
+
+    if(flag==1)
+    {
+        printf("\n-----\nElement deleted.\n");
+    }
+    else
+    {
+        printf("\n-----\nElement is not on the list.\n");
+    }
+}
 
 void clearList(LIST *C)
 {
