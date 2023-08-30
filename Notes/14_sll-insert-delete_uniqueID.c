@@ -15,16 +15,14 @@ typedef struct node{
 }*StudList;
 
 void Print(StudList P);
-void InsertStudent(StudList *A, int id, char LN[], char FN[], char MI, char course[], int yearLevel);
-StudList DeleteStudent(StudList *B, int searchID);
+void InsertStudent(StudList *A, Studrec stud);
+Studrec DeleteStudent(StudList *B, int searchID);
 void errorMsg();
 
 int main()
 {
     StudList L=NULL;
-    int menu=1, choice, id, yearLevel;
-    char course[8], LN[16], FN[24], MI; 
-    
+    int menu=1, choice, id;
 
     do{
         printf("================================\n");
@@ -36,21 +34,23 @@ int main()
         switch(choice)
         {
             case 1: 
+            Studrec inputStud;
             printf("\n-- ADD A NEW STUDENT --\n");
             printf("\nEnter the following\n\t***\n\n");
             printf("ID: ");
-            scanf("%d", &id);
+            scanf("%d", &inputStud.ID);
             printf("First name: ");
-            scanf("%s", FN);
+            scanf("%s", inputStud.FN);
             printf("Middle initial: ");
-            scanf(" %c", &MI);
+            scanf(" %c", &inputStud.MI);
             printf("Last name: ");
-            scanf("%s", LN);
+            scanf("%s", inputStud.LN);
             printf("Year level: ");
-            scanf("%d", &yearLevel);
+            scanf("%d", &inputStud.yearLevel);
             printf("Course: ");
-            scanf("%s", course);
-            InsertStudent(&L, id, LN, FN, MI, course, yearLevel);
+            scanf("%s", inputStud.course);
+            InsertStudent(&L, inputStud);
+
             break;
             case 2:
             if(L==NULL)
@@ -63,22 +63,22 @@ int main()
                 printf("Enter student's ID: ");
                 scanf("%d", &id);
 
-                StudList check = DeleteStudent(&L, id);
+                Studrec check = DeleteStudent(&L, id);
 
-                printf("\n\n-----------\nID: %d", check->stud.ID);
-                printf("\nFirst name: %s\n", check->stud.FN);
-                printf("Middle Initial: %c\n", check->stud.MI);
-                printf("Last name: %s\n", check->stud.LN);
-                printf("Year level: %d\n", check->stud.yearLevel);
-                printf("Course: %s\n", check->stud.course);  
+                printf("\n\n-----------\nID: %d", check.ID);
+                printf("\nFirst name: %s\n", check.FN);
+                printf("Middle Initial: %c\n", check.MI);
+                printf("Last name: %s\n", check.LN);
+                printf("Year level: %d\n", check.yearLevel);
+                printf("Course: %s\n", check.course);  
 
-                if(check->stud.ID==0)
+                if(check.ID==0)
                 {
                     printf("\n\tStudent does not exist.\n");
                 }
                 else
                 {
-                    printf("\n\tStudent %d removed.\n", check->stud.ID);
+                    printf("\n\tStudent %d removed.\n", check.ID);
                 }
             }
             break;
@@ -115,102 +115,61 @@ void errorMsg()
     printf("\n\n\tInvalid input. Try again.\n\n");
 }
 
-void InsertStudent(StudList *A, int id, char LN[], char FN[], char MI, char course[], int yearLevel)
+void InsertStudent(StudList *A, Studrec stud)
 {
-    int flag = 0;
     StudList trav;
-    for(trav=*A; trav!=NULL && flag!=1; trav=trav->link)
-    {
-        if(trav->stud.ID == id)
-            flag=1;
-    }
-
-    if(flag!=1)
+    for(trav=*A; trav!=NULL && trav->stud.ID!=stud.ID; trav=trav->link){}
+    
+    if(trav==NULL)
     {
         StudList newNode = (StudList)malloc(sizeof(struct node));
-        newNode->stud.ID = id;
-        newNode->stud.MI = MI;
-        newNode->stud.yearLevel = yearLevel;
-        strcpy(newNode->stud.FN, FN);
-        strcpy(newNode->stud.LN, LN);
-        strcpy(newNode->stud.course, course);
-
-        if(*A==NULL)
+        if(newNode==NULL)
         {
-            *A = newNode;
+            printf("Memory allocation failed");
+            exit(1);
         }
-        else
-        {
-            newNode->link = *A;
-            *A = newNode;
-        }
+        
+        newNode->stud = stud;
+        newNode->link = *A;
+        *A = newNode;
 
-        printf("\n\n\tStudent %d added.\n\n", id);
+        printf("\n\tStudent %d added.\n\n", stud.ID);
     }
     else
     {
-        printf("\n\n\tStudent already exists!\n\n");
+        printf("\n\nStudent already exists!\n\n");
     }
 }
 
-StudList DeleteStudent(StudList *B, int searchID)
+Studrec DeleteStudent(StudList *B, int searchID)
 {
-    int flag=0, pos=1;
-    StudList dummy, trav;
-
-    for(trav=*B; trav!=NULL && flag!=1; trav=trav->link)
-    {
-        if(trav->stud.ID==searchID)
-            flag = 1;
-        else
-            pos++;
-    }
-
-    StudList temp = (StudList)malloc(sizeof(struct node));
-    temp->link=NULL;
-
-    if(flag==1)
-    {
-        if(pos==1)
+    StudList trav, temp;
+    Studrec stud = {0, "XXXXX", "XXXXX", 'X', "XXXXX", 0}; //setting up dummy
+    if(*B!=NULL) //check if list is empty
+    {   
+        if((*B)->stud.ID==searchID) //if id 
         {
-            dummy = *B;
+            temp = *B;
             *B = (*B)->link;
+            stud = temp->stud; //copy contents of stud
+            free(temp);
         }
         else
         {
-            trav=*B;
-            int i;
-            for(i=1; i<pos-1; i++)
-            {
-                trav=trav->link;
-            }
+            //looking ahead method
+            for(trav=*B; trav->link!=NULL && trav->link->stud.ID!=searchID; trav = trav->link){}
 
-            dummy = trav->link;
-            StudList nextNode = dummy->link;
-            trav->link = nextNode;
+            if(trav->link!=NULL)
+            {
+                temp = trav->link;
+                trav->link = temp->link;
+                stud = temp->stud;
+                free(temp);
+            }
         }
     }
-    else
-    {
-        //allocating memory
-        dummy = (StudList)malloc(sizeof(struct node));
-        dummy->link = NULL;
 
-        dummy->stud.ID = dummy->stud.yearLevel = 0;
-        dummy->stud.MI = '\0';
-        strcpy(dummy->stud.FN, "XXXXX");
-        strcpy(dummy->stud.LN, "XXXXX");
-        strcpy(dummy->stud.course, "XXXXX");
-    }
-
-    temp->stud.MI = dummy->stud.MI;
-    temp->stud.ID = dummy->stud.ID;
-    temp->stud.yearLevel = dummy->stud.yearLevel;
-    strcpy(temp->stud.FN, dummy->stud.FN);
-    strcpy(temp->stud.LN, dummy->stud.LN);
-    strcpy(temp->stud.course, dummy->stud.course);
-    free(dummy);
-    return temp;
+    return stud;
 }
 
 void Print(StudList P)
