@@ -7,11 +7,14 @@
     - delete element at specific position
     - display
     - clear list
+    - find maximum element
+    - calculate sum
 */
 
 #include<stdio.h>
 #include<stdbool.h>
 #define MAX_SIZE 5
+#define MAX_ELEM -9999
 typedef struct{
     int arr[MAX_SIZE];
     int count;
@@ -75,6 +78,32 @@ void deleteAtPos(List *list, int index)
     }
 }
 
+int findMax(List *list)
+{
+    int max = MAX_ELEM, i;
+
+    for(i=0; i<list->count; i++)
+    {
+        if(list->arr[i]>max)
+        {
+            max=list->arr[i];
+        }
+    }
+
+    return max;
+}
+
+int calculateSum(List* list)
+{
+    int sum=0, i;
+    for(i=0; i<list->count; i++)
+    {
+        sum+=list->arr[i];
+    }
+
+    return sum;
+}
+
 int main()
 {
     List myList;
@@ -88,6 +117,8 @@ int main()
         printf("[2] Delete element\n");
         printf("[3] Display list\n");
         printf("[4] Clear list\n");
+        printf("[5] Find max element\n");
+        printf("[6] Calculate sum");
         printf("\n\n[0]EXIT\n---\nChoice: ");
         scanf("%d", &choice);
 
@@ -156,6 +187,29 @@ int main()
                 }
             }
 
+            break;
+
+            case 5:
+
+            if(myList.count<=1)
+            {
+                printf("\n\nCannot perform operation.\nList must contain 2 or more elements.\n\n");
+            }
+            else
+            {
+                printf("\nMaximum element = %d\n\n", findMax(&myList));
+            }
+            break;
+
+            case 6: 
+            if(isEmpty(&myList))
+            {
+                printf("\n\n\tEmpty list!\n\n");
+            }
+            else
+            {
+                printf("\nSum = %d\n\n", calculateSum(&myList));
+            }
             break;
             case 0: menu = 0; break;
 
