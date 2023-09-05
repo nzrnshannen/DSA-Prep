@@ -25,7 +25,7 @@ void Insert(LIST *list, int elem)
     }
 }
 
-void DeleteOccurrences(LIST *list, int elem)
+void DeleteOccurrences(LIST* list, int elem)
 {
     int i, j, curr_size = list->count;
 

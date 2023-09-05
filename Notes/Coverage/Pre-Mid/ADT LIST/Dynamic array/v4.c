@@ -1,14 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-typedef struct{
+typedef struct node{
     int *elemPtr;
     int count;
-}List;
+}*List;
 
-void initializeList(List **L)
+void initializeList(List *L)
 {
-    *L = (List*)malloc(sizeof(List)); //making the list
+    *L = (List)malloc(sizeof(struct node)); //making the list
     if(*L == NULL)
     {
         printf("\nMemory allocation failure");
@@ -21,5 +21,6 @@ void initializeList(List **L)
 
 int main()
 {
-    List *L;
+    List L;
+    initializeList(&L);
 }
