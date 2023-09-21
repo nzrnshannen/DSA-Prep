@@ -8,26 +8,22 @@ typedef struct node{
 
 typedef Node * SET;
 
-SET Union(SET X, SET Y);
+void Union(SET X, SET Y, SET *Z);
 void Insert(SET *D, int x);
-SET Intersection(SET X, SET Y);
-SET Difference(SET X, SET Y);
+
 
 void initSet(SET *D)   
 {
     *D = NULL;
 }
 
-SET Difference(SET X, SET Y)
+void Difference(SET X, SET Y, SET *Z)
 {
-    SET Z;
-    initSet(&Z);
-
     while(X!=NULL && Y!=NULL)
     {
         if(X->data < Y->data)
         {
-            Insert(&Z, X->data);
+            Insert(Z, X->data);
             X=X->link;
         }
         else if(X->data == Y->data)
@@ -45,76 +41,72 @@ SET Difference(SET X, SET Y)
     {
         for(; X!=NULL; X=X->link)
         {
-            Insert(&Z, X->data);
+            Insert(Z, X->data);
         }
     }
-
-    return Z;
 }
 
-SET Intersection(SET X, SET Y)
+void Intersection(SET X, SET Y, SET *Z)
 {
-    SET Z;
-    initSet(&Z);
+    SET t1, t2;
+    t1=X;
+    t2=Y;
 
-    while(X!=NULL && Y!=NULL)
+    while(t1!=NULL && t2!=NULL)
     {
-        if(X->data == Y->data)
+        if(t1->data == t2->data)
         {
-            Insert(&Z, X->data);
-            X=X->link;
-            Y=Y->link;
+            Insert(Z, t1->data);
+            t1=t1->link;
+            t2=t2->link;
         }
-        else if(X->data < Y->data)
-            X=X->link;
+        else if(t1->data < t2->data)
+            t1=t1->link;
         else
-            Y=Y->link;
+            t2=t2->link;
     }
-
-    return Z;
 
 }
 
-SET Union (SET X, SET Y)
+void Union (SET X, SET Y, SET *Z)
 {
-    SET Z;
-    initSet(&Z);
+    SET t1, t2;
+    t1=X;
+    t2=Y;
     int elem;
 
-    while(X!=NULL && Y!=NULL)
+    while(t1!=NULL && t2!=NULL)
     {
-        if(X->data < Y->data)
+        if(t1->data < t2->data)
         {
-            elem = X->data; 
-            X=X->link;
+            elem = t1->data; 
+            t1=t1->link;
         }
-        else if(Y->data < X->data)
+        else if(t2->data < t1->data)
         {
-            elem = Y->data;
-            Y=Y->link;
+            elem = t2->data;
+            t2=t2->link;
         }   
         else
         {
-            elem = X->data;
-            X=X->link;
-            Y=Y->link;
+            elem = t1->data;
+            t1=t1->link;
+            t2=t2->link;
         }
 
-        Insert(&Z, elem);
+        Insert(Z, elem);
     }
     
-    if(X!=NULL)
+    if(t1!=NULL)
     {
-        for(; X!=NULL; X=X->link)
-            Insert(&Z, X->data);
+        for(; t1!=NULL; t1=t1->link)
+            Insert(Z, t1->data);
     }
     else
     {
-        for(; Y!=NULL; Y=Y->link)
-            Insert(&Z, Y->data);
+        for(; t2!=NULL; t2=t2->link)
+            Insert(Z, t2->data);
     }
-
-    return Z;
 }
 
 void Insert(SET *Z, int elem)
@@ -170,12 +162,9 @@ int main()
 
     //Union(A, B, &C);
     //Intersection(A, B, &C);
-    // Difference(A, B, &C);
-    // Print(A);
-    // Print(B);
-    // Print(C);
-
-    C = Difference(A, B);
+    Difference(A, B, &C);
+    Print(A);
+    Print(B);
     Print(C);
 
     return 0;

@@ -1,66 +1,126 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
+#define MAX 5
+typedef struct{
+    int data[MAX];
+    int count;
+}LIST, *PLIST;
 
-#define MAX 10
 
-typedef struct node{
-char *elemptr;
-int count;
+void initList(PLIST A);
+bool isEmpty(PLIST A);
+bool isFull(PLIST A);
+void Print(PLIST A);
+void emptyListMsg();
+void fullListMsg();
+void Insert(PLIST A, int x);
+bool checkIfPalindrome(PLIST A);
+void isPalindrome(PLIST A);
 
-}*LIST;
-
-void initList(LIST *A){
-*A = (LIST)malloc(sizeof(struct node));
-if(*A != NULL)
+void isPalindrome(PLIST A)
 {
-    (*A)->elemptr = (char*)malloc(sizeof(char)*MAX);
-    (*A)->count = 0;
-}else{
-    printf("\n\nYour list is not empty.");
-}
-}
-
-void insertSorted(LIST A, char elem){
-
-if(A->count < MAX){
-
-int x;
-
-for(x = A->count - 1; x >= 0 && A->elemptr[x] > elem; x--){
-
-A->elemptr[x + 1] = A->elemptr[x];
-
-}
-
-A->elemptr[x+1] = elem;
-A->count++;
-
+    if(isEmpty(A)) 
+    {
+        emptyListMsg();
+    }
+    else
+    {
+        int r = checkIfPalindrome(A);
+        if(r==1)
+        {
+            printf("\n\n\tPalindrome");
+        }
+        else
+        {
+            printf("\n\n\tNot a Palindrome");
+        }
+    }
 }
 
+bool checkIfPalindrome(PLIST A)
+{
+    LIST temp;
+    initList(&temp);
+    int i;
+
+    for(i=A->count-1; i>=0; i--)
+    {
+        temp.data[temp.count++] = A->data[i];
+    }
+
+    for(i=0; i<A->count && A->data[i]==temp.data[i]; i++);
+
+    return (i==A->count);
 }
 
-void displayList(LIST A){
-int x;
-for(x=0; x < A->count; x++){
-
-printf("%c\n\n", A->elemptr[x]);
-
-}
+void initList(PLIST A)
+{
+    A->count=0;
 }
 
-int main(){
+bool isEmpty(PLIST A)
+{
+    return (A->count==0);
+}
 
-LIST *L;
+bool isFull(PLIST A)
+{
+    return (A->count==MAX);
+}
 
-initList(L);
+void Print(PLIST A)
+{
+    if(isEmpty(A))
+    {
+        emptyListMsg();
+    }
+    else
+    {
+        printf("\n-----\nList: ");
+        int i;
+        for(i=0; i<A->count; i++)
+        {
+            printf("%d ", A->data[i]);
+        }
 
-insertSorted(*L, 'B');
-insertSorted(*L, 'C');
-insertSorted(*L, 'D');
-insertSorted(*L, 'A');
+        printf("\n");
+    }
+}
 
-displayList(*L);
+void emptyListMsg()
+{
+    printf("\n\n\tList is empty!\n\n");
+}
 
+void fullListMsg()
+{
+    printf("\n\n\tList is already full!\n\n");
+}
 
-return 0;
+void Insert(PLIST A, int x)
+{
+    if(isFull(A))
+    {
+        fullListMsg();
+    }
+    else
+    {
+        A->data[A->count++] = x;
+    }
+}
+
+int main()
+{
+    LIST L;
+    PLIST A = &L;
+    initList(A);
+    Insert(A, 1);
+    Insert(A, 2);
+    Insert(A, 1);
+    Print(A);
+    isPalindrome(A);
+    printf("\n");
+
+    return 0;
 }
