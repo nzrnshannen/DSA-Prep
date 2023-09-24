@@ -99,7 +99,7 @@ void Delete(LIST *L, int elem)
     {
         int i, j;
         int checker = L->count;
-        for(i=0; i<L->count; i++)
+        for(i=L->count-1; i>=0; i--)
         {
             if(L->elemPtr[i]==elem)
             {
@@ -107,6 +107,7 @@ void Delete(LIST *L, int elem)
                 {
                     L->elemPtr[j] = L->elemPtr[j+1];
                 }
+
                 L->count--;
             }
         }
@@ -136,12 +137,12 @@ int main()
     initList(&myList);
     Insert(&myList, 1);
     Insert(&myList, 2);
+    Insert(&myList, 1);
+    Insert(&myList, 1);
     Insert(&myList, 3);
-    Insert(&myList, 4);
-    Insert(&myList, 3);
-    Insert(&myList, 4);
+    Insert(&myList, 1);
     Print(myList);
-    Delete(&myList, -1);
+    Delete(&myList, 1);
     Print(myList);
     makeNull(&myList);
 
