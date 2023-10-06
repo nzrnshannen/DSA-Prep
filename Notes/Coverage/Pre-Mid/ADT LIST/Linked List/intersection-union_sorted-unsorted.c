@@ -1,5 +1,11 @@
 //union and intersection
 
+/*
+    Name: Shannen T. Nazareno
+    
+    The program isn't strict about duplicating elements as lists can have
+    duplicates unlike ADT Sets.
+*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>

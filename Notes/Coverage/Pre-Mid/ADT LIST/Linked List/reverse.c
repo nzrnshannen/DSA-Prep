@@ -119,8 +119,7 @@ void Reverse(LIST *L)
 
 int main()
 {
-    nodeType listOne;
-    LIST p1 = &listOne;
+    LIST p1;
     Initialize(&p1);
     Insert(&p1, 'A');
     Insert(&p1, 'B');

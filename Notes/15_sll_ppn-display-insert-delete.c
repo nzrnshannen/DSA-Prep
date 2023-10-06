@@ -66,6 +66,7 @@ void displayList(LIST *A)
 
     printf("\n");
 }
+
 int main()
 {
     LIST L;
@@ -76,7 +77,7 @@ int main()
     insertFirst(&L, 'A');
     displayList(&L);
 
-    deleteFirstOccurrence(&L, 'B');
+    deleteFirstOccurrence(&L, 'A');
     displayList(&L);
     clearList(&L);
 
