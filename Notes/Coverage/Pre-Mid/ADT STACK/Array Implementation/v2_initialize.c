@@ -8,15 +8,20 @@ typedef struct{
     int top;
 }node, *STACK;
 
+void Initialize(STACK *S);
 void emptyStackMsg();
 void fullStackMsg();
-void Initialize(STACK *S);
-void Display(STACK S);
+DATATYPE Top(STACK S);
 void Push(STACK *S, DATATYPE elem);
 void Pop(STACK *S);
-DATATYPE Top(STACK S);
+void Display(STACK S);
 bool isEmpty(STACK S);
 bool isFull(STACK S);
+
+void Initialize(STACK *S)
+{
+    (*S)->top = -1;
+}
 
 void emptyStackMsg()
 {
@@ -28,14 +33,9 @@ void fullStackMsg()
     printf("\n\n\tStack overflow!\n\n");
 }
 
-bool isEmpty(STACK S)
+DATATYPE Top(STACK S)
 {
-    return (S->top==-1);
-}
-
-bool isFull(STACK S)
-{
-    return (S->top==MAX-1);
+    return S->elem[S->top];
 }
 
 void Push(STACK *S, DATATYPE elem)
@@ -63,16 +63,16 @@ void Pop(STACK *S)
     }
 }
 
-DATATYPE Top(STACK S)
+bool isEmpty(STACK S)
 {
-    return S->elem[S->top];
+    return (S->top==-1);
 }
 
-void Initialize(STACK *S)
-{
-    (*S)->top=-1;
-}
 
+bool isFull(STACK S)
+{
+    return (S->top==MAX-1);
+}
 
 void Display(STACK S)
 {
@@ -83,39 +83,39 @@ void Display(STACK S)
     else
     {
         node temp;
-        STACK tempStack = &temp;
-        Initialize(&tempStack);
-
-        printf("\n-----\nSTACK: ");
+        STACK t = &temp;
+        Initialize(&t);
+        
+        printf("\n-----\nStack: ");
         while(!isEmpty(S))
         {
-            Push(tempStack, Top(S));
+            Push(&t, Top(S));
             Pop(&S);
         }
 
-        while(!isEmpty(tempStack))
+        while(!isEmpty(&temp))
         {
-            printf("%c ", Top(tempStack));
-            Push(&S, Top(tempStack));
-            Pop(&tempStack);
+            printf("%c ", Top(t));
+            Push(&S, Top(t));
+            Pop(&t);
         }
 
         printf("\n\n");
     }
 }
 
-void Combine(STACK A, STACK B)
-{
-    if(isEmpty(*A) || isEmpty(*B))
-    {
-        emptyStackMsg();
-    }
-    else
-    {
-
-    }
-}
 int main()
 {
+    node myStack;
+    STACK P = &myStack;
+    Initialize(&P);
+    Push(&P, 'A');
+    Push(&P, 'B');
+    Push(&P, 'C');
+    Push(&P, 'D');
+    Push(&P, 'E');
+    Display(P);
+    Display(P);
+
     return 0;
 }

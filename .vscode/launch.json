@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Shannen Nazareno/OneDrive - usc.edu.ph/Desktop/Programs/DSA Prep/Math",
-      "program": "c:/Users/Shannen Nazareno/OneDrive - usc.edu.ph/Desktop/Programs/DSA Prep/Math/build/Debug/outDebug",
+      "cwd": "c:/Users/heyst/Desktop/DSA-Prep/Notes",
+      "program": "c:/Users/heyst/Desktop/DSA-Prep/Notes/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
