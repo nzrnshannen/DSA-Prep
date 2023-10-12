@@ -21,7 +21,8 @@ bool isEmpty(STACK S);
 bool isFull(STACK S);
 void errorMsg();
 void makeNull(STACK *S);
-void Copy(STACK A, STACK *B);
+void Search(STACK S, DATATYPE elem);
+int returnPos(STACK S, DATATYPE elem);
 
 void errorMsg()
 {
@@ -134,82 +135,39 @@ void makeNull(STACK *S)
     free(S->elemPtr);
 }
 
-void Swap(STACK *A, STACK *B)
+int returnPos(STACK S, DATATYPE elem)
 {
-    if(isEmpty(*A) || isEmpty(*B))
-    {
-        emptyStackMsg();
-    }
-    else
-    {
-        STACK temp1, temp2;
-        Initialize(&temp1);
-        Initialize(&temp2);
+    int retVal=(S.top)+1;
+    for(; !isEmpty(S) && elem!=Top(S); Pop(&S), retVal--){}
 
-        while(!isEmpty(*A))
-        {
-            Push(&temp1, Top(*A));
-            Pop(A);
-        }
-
-        while(!isEmpty(*B))
-        {
-            Push(&temp2, Top(*B));
-            Pop(B);
-        }
-
-        while(!isEmpty(temp1))
-        {
-            Push(B, Top(temp1));
-            Pop(&temp1);
-        }
-
-        while(!isEmpty(temp2))
-        {
-            Push(A, Top(temp2));
-            Pop(&temp2);
-        }
-
-        makeNull(&temp1);
-        makeNull(&temp2);
-
-        printf("\n\t>> Successfully swapped stacks. <<\n\n");
-    }
+    return retVal;
 }
 
-void Copy(STACK A, STACK *B)
+void Search(STACK S, DATATYPE elem)
 {
-    if(isEmpty(A))
+    if(isEmpty(S))
     {
         emptyStackMsg();
     }
     else
     {
-        STACK temp;
-        Initialize(&temp);
-
-        while(!isEmpty(A))
+        int retVal = returnPos(S, elem);
+        printf("\n==========\n");
+        if(retVal!=0)
         {
-            Push(&temp, Top(A));
-            Pop(&A);
+            printf("Element %c found at position %d.\n\n", elem, retVal);
         }
-
-        while(!isEmpty(temp))
+        else
         {
-            Push(B, Top(temp));
-            Pop(&temp);
+            printf("\nElement %c doesn't exist.\n\n", elem);
         }
-
-        printf("\n\t>> Successfully copied stack. <<\n");
-        makeNull(&temp);
     }
 }
 
 int main()
 {
-    STACK myStack, exampleStack;
+    STACK myStack;
     Initialize(&myStack);
-    Initialize(&exampleStack);
     Push(&myStack, 'A');
     Push(&myStack, 'B');
     Push(&myStack, 'C');
@@ -218,12 +176,9 @@ int main()
     Push(&myStack, 'F');
     Push(&myStack, 'G');
 
-    Copy(myStack, &exampleStack);
-
     Display(myStack);
-    Display(exampleStack);
-    
+    Search(myStack, 'L');
+
     makeNull(&myStack);
-    makeNull(&exampleStack);
     return 0;
 }

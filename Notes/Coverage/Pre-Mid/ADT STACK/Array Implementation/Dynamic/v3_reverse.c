@@ -21,7 +21,7 @@ bool isEmpty(STACK S);
 bool isFull(STACK S);
 void errorMsg();
 void makeNull(STACK *S);
-void Copy(STACK A, STACK *B);
+void Reverse(STACK *S);
 
 void errorMsg()
 {
@@ -134,9 +134,9 @@ void makeNull(STACK *S)
     free(S->elemPtr);
 }
 
-void Swap(STACK *A, STACK *B)
+void Reverse(STACK *S)
 {
-    if(isEmpty(*A) || isEmpty(*B))
+    if(isEmpty(*S))
     {
         emptyStackMsg();
     }
@@ -146,70 +146,32 @@ void Swap(STACK *A, STACK *B)
         Initialize(&temp1);
         Initialize(&temp2);
 
-        while(!isEmpty(*A))
+        while(!isEmpty(*S))
         {
-            Push(&temp1, Top(*A));
-            Pop(A);
-        }
-
-        while(!isEmpty(*B))
-        {
-            Push(&temp2, Top(*B));
-            Pop(B);
+            Push(&temp1, Top(*S));
+            Pop(S);
         }
 
         while(!isEmpty(temp1))
         {
-            Push(B, Top(temp1));
+            Push(&temp2, Top(temp1));
             Pop(&temp1);
         }
 
         while(!isEmpty(temp2))
         {
-            Push(A, Top(temp2));
+            Push(S, Top(temp2));
             Pop(&temp2);
         }
 
-        makeNull(&temp1);
-        makeNull(&temp2);
-
-        printf("\n\t>> Successfully swapped stacks. <<\n\n");
-    }
-}
-
-void Copy(STACK A, STACK *B)
-{
-    if(isEmpty(A))
-    {
-        emptyStackMsg();
-    }
-    else
-    {
-        STACK temp;
-        Initialize(&temp);
-
-        while(!isEmpty(A))
-        {
-            Push(&temp, Top(A));
-            Pop(&A);
-        }
-
-        while(!isEmpty(temp))
-        {
-            Push(B, Top(temp));
-            Pop(&temp);
-        }
-
-        printf("\n\t>> Successfully copied stack. <<\n");
-        makeNull(&temp);
+        printf("\n\t>> Stack reversed. <<\n\n");
     }
 }
 
 int main()
 {
-    STACK myStack, exampleStack;
+    STACK myStack;
     Initialize(&myStack);
-    Initialize(&exampleStack);
     Push(&myStack, 'A');
     Push(&myStack, 'B');
     Push(&myStack, 'C');
@@ -218,12 +180,9 @@ int main()
     Push(&myStack, 'F');
     Push(&myStack, 'G');
 
-    Copy(myStack, &exampleStack);
-
     Display(myStack);
-    Display(exampleStack);
-    
+    Reverse(&myStack);
+    Display(myStack);
     makeNull(&myStack);
-    makeNull(&exampleStack);
     return 0;
 }

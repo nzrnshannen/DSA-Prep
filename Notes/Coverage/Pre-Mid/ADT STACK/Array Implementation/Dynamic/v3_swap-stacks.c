@@ -21,7 +21,6 @@ bool isEmpty(STACK S);
 bool isFull(STACK S);
 void errorMsg();
 void makeNull(STACK *S);
-void Copy(STACK A, STACK *B);
 
 void errorMsg()
 {
@@ -176,35 +175,6 @@ void Swap(STACK *A, STACK *B)
         printf("\n\t>> Successfully swapped stacks. <<\n\n");
     }
 }
-
-void Copy(STACK A, STACK *B)
-{
-    if(isEmpty(A))
-    {
-        emptyStackMsg();
-    }
-    else
-    {
-        STACK temp;
-        Initialize(&temp);
-
-        while(!isEmpty(A))
-        {
-            Push(&temp, Top(A));
-            Pop(&A);
-        }
-
-        while(!isEmpty(temp))
-        {
-            Push(B, Top(temp));
-            Pop(&temp);
-        }
-
-        printf("\n\t>> Successfully copied stack. <<\n");
-        makeNull(&temp);
-    }
-}
-
 int main()
 {
     STACK myStack, exampleStack;
@@ -218,11 +188,21 @@ int main()
     Push(&myStack, 'F');
     Push(&myStack, 'G');
 
-    Copy(myStack, &exampleStack);
+    Push(&exampleStack, 'H');
+    Push(&exampleStack, 'I');
+    Push(&exampleStack, 'J');
+    Push(&exampleStack, 'K');
+    Push(&exampleStack, 'L');
+    Push(&exampleStack, 'M');
 
     Display(myStack);
     Display(exampleStack);
-    
+
+    Swap(&myStack, &exampleStack);
+
+    Display(myStack);
+    Display(exampleStack);
+
     makeNull(&myStack);
     makeNull(&exampleStack);
     return 0;

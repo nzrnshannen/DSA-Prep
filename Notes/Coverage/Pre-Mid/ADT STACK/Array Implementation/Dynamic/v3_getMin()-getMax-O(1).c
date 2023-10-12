@@ -8,6 +8,8 @@ typedef char DATATYPE;
 typedef struct{
     DATATYPE *elemPtr;
     int top;
+    DATATYPE minElem;
+    DATATYPE maxElem;
 }STACK;
 
 void Initialize(STACK *S);
@@ -21,7 +23,8 @@ bool isEmpty(STACK S);
 bool isFull(STACK S);
 void errorMsg();
 void makeNull(STACK *S);
-void Copy(STACK A, STACK *B);
+void getMin(STACK S);
+void getMax(STACK S);
 
 void errorMsg()
 {
@@ -31,6 +34,8 @@ void errorMsg()
 
 void Initialize(STACK *S)
 {
+    S->minElem = 'z';
+    S->maxElem = '\0';
     S->top=-1;
     S->elemPtr = (DATATYPE *)malloc(sizeof(DATATYPE) * MAX);
     if(S->elemPtr==NULL)
@@ -101,6 +106,12 @@ void Push(STACK *S, DATATYPE elem)
         S->top++;
         S->elemPtr[S->top] = elem;
     }
+   
+    if(elem < S->minElem)
+        S->minElem = elem;
+
+    if(elem > S->maxElem)
+        S->maxElem = elem;
 }
 
 DATATYPE Top(STACK S)
@@ -134,82 +145,34 @@ void makeNull(STACK *S)
     free(S->elemPtr);
 }
 
-void Swap(STACK *A, STACK *B)
+void getMin(STACK S)
 {
-    if(isEmpty(*A) || isEmpty(*B))
+    if(isEmpty(S))
     {
         emptyStackMsg();
     }
     else
     {
-        STACK temp1, temp2;
-        Initialize(&temp1);
-        Initialize(&temp2);
-
-        while(!isEmpty(*A))
-        {
-            Push(&temp1, Top(*A));
-            Pop(A);
-        }
-
-        while(!isEmpty(*B))
-        {
-            Push(&temp2, Top(*B));
-            Pop(B);
-        }
-
-        while(!isEmpty(temp1))
-        {
-            Push(B, Top(temp1));
-            Pop(&temp1);
-        }
-
-        while(!isEmpty(temp2))
-        {
-            Push(A, Top(temp2));
-            Pop(&temp2);
-        }
-
-        makeNull(&temp1);
-        makeNull(&temp2);
-
-        printf("\n\t>> Successfully swapped stacks. <<\n\n");
+        printf("\n=====\nMin = %c\n\n", S.minElem);
     }
 }
 
-void Copy(STACK A, STACK *B)
+void getMax(STACK S)
 {
-    if(isEmpty(A))
+    if(isEmpty(S))
     {
         emptyStackMsg();
     }
     else
     {
-        STACK temp;
-        Initialize(&temp);
-
-        while(!isEmpty(A))
-        {
-            Push(&temp, Top(A));
-            Pop(&A);
-        }
-
-        while(!isEmpty(temp))
-        {
-            Push(B, Top(temp));
-            Pop(&temp);
-        }
-
-        printf("\n\t>> Successfully copied stack. <<\n");
-        makeNull(&temp);
+        printf("\n=====\nMax = %c\n\n", S.maxElem);
     }
 }
 
 int main()
 {
-    STACK myStack, exampleStack;
+    STACK myStack;
     Initialize(&myStack);
-    Initialize(&exampleStack);
     Push(&myStack, 'A');
     Push(&myStack, 'B');
     Push(&myStack, 'C');
@@ -218,12 +181,11 @@ int main()
     Push(&myStack, 'F');
     Push(&myStack, 'G');
 
-    Copy(myStack, &exampleStack);
-
     Display(myStack);
-    Display(exampleStack);
+
+    getMin(myStack);
+    getMax(myStack);
     
     makeNull(&myStack);
-    makeNull(&exampleStack);
     return 0;
 }
