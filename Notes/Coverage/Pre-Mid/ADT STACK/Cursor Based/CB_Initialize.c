@@ -40,8 +40,6 @@ void InitVirtualHeap(VirtualHeap *VH)
     VH->Avail = MAX-1;
     for(x=0; x<MAX; x++)
         VH->Nodes[x].link = x-1;
-    
-    x=0;
 }
 
 void emptyStackMsg()
